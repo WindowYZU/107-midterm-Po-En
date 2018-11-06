@@ -15,6 +15,9 @@ import java.util.logging.Logger;
 import javafx.scene.AccessibleAttribute;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 
@@ -52,6 +55,11 @@ public class NewJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "https://mbtskoudsalg.com/images/png-image-7.png", "http://pngimg.com/uploads/eagle/eagle_PNG1227.png", "https://upload.wikimedia.org/wikipedia/commons/4/4a/Photographer_Barnstar.png", "http://pluspng.com/img-png/bulb-hd-png-light-bulb-png-transparent-image-2048.png", " " }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(jList1);
 
@@ -83,7 +91,7 @@ public class NewJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
@@ -98,6 +106,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+         DefaultListModel model=(DefaultListModel) jList1.getModel();
+        model.addElement(jComboBox1.getSelectedItem());
+        jList1.updateUI();
+        
         try {
             jButton1.setEnabled(false);
             //從 combobox 抓出被選到的項目，存到變數裡
@@ -118,6 +130,13 @@ public class NewJFrame extends javax.swing.JFrame {
                         progress.setVisible(false);
                         jButton1.setEnabled(true);
                         //將下載好的項目加入到 jList 裡面
+                        JComboBox combo=new JComboBox();
+                        for (int i=0;i<100;i++){
+                            combo.addItem(""+i);
+                        }
+                        JScrollPane scrollPane=new JScrollPane();
+        JList list=new JList(new String[]{"a","b","c","d","e","f"}); 
+        scrollPane.getViewport().add(list);
                         
                         ////////////////////////////
                         SwingUtilities.invokeLater(new Runnable() {
@@ -126,6 +145,8 @@ public class NewJFrame extends javax.swing.JFrame {
                                 try {
                                     URL fileURL=tempFile.toURI().toURL();
                                     //利用 fileURL 將 image icon 加到 jLabel2
+                                    URL url = new URL(selectedItem);
+                                    String fileName = url.getFile();
                                     ////////////////////////////////////////
                                     jList1.updateUI();
                                 } catch (Exception ex) {
@@ -147,7 +168,15 @@ public class NewJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+           String value=(String) jComboBox1.getSelectedItem();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    /**     
+          
+        ///////////////////////////////////////////////
+    }        
      * @param args the command line arguments
      */
     public static void main(String args[]) {
